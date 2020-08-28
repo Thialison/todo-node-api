@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TodoSchema = new Schema({
-  title: String, // String is shorthand for {type: String}
-  description: String,
-  status: Boolean,
+  title: String,
+  description: { type: String, default: '-' },
+  status: { type: String, default: 'Pending' },
   end_date: { type: Date, default: Date.now() + 1 },
 });
 
