@@ -6,3 +6,7 @@ mongoose.connect(`mongodb://${process.env.MONGO_HOST}` +
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
+mongoose.connection.on('error', (err) => {
+  console.error(err);
+});

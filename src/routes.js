@@ -14,11 +14,14 @@ module.exports = [
   {
     method: 'GET',
     path: '/api/v1/todos/{id}',
-    handler: todoHandler.getOne,
+    handler: todoHandler.find,
   },
   {
     method: 'DELETE',
     path: '/api/v1/todos/{id}',
     handler: todoHandler.remove,
+    options: {
+      cors: true
+    }
   }
 ]

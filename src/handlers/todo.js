@@ -1,4 +1,4 @@
-const TodoModel = require('../models/todo');
+const TodoRepository = require('../repositories/todo');
 
 const response = todo => ({
   type: 'todos',
@@ -21,9 +21,9 @@ const notFound = (req) => ({
   code: '404'
 })
 
-const getOne = async (req, h) => {
+const find = async (req, h) => {
   try {
-    const todo = await TodoModel.findById(req.params.id);
+    const todo = await TodoRepository.find(req.params.id);
     return h.response({ data: response(todo) }).code(200);
   } catch (error) {
     return h.response({ erros: notFound(req.params) }).code(404);
@@ -31,26 +31,19 @@ const getOne = async (req, h) => {
 }
 
 const getAll = async (req, h) => {
-  const todos = await TodoModel.find({});
+  const todos = await TodoRepository.getAll();
   return h.response({ data: todos.map(response) }).code(200);
 }
 
 const save = async (req, h) => {
-  const { title, description, status, end_date } = req.payload;
-  const todo = new TodoModel;
-
-  todo.title = title;
-  todo.description = description;
-  status !== undefined ? todo.status = status : null;
-  end_date !== undefined ? todo.end_date = end_date : null;
-  await todo.save();
+  const todo = await TodoRepository.save(req.payload)
   return h.response({ data: response(todo) }).code(201)
 }
 
 const remove = async (req, h) => {
   const params = req.params;
   try {
-    await TodoModel.findOneAndDelete({ _id: params.id });
+    await TodoRepository.remove(params.id);
     return h.response().code(204);
   } catch (error) {
     return h.response({ errors: notFound(params) }).code(404);
@@ -60,6 +53,6 @@ const remove = async (req, h) => {
 module.exports = {
   getAll,
   save,
-  getOne,
+  find,
   remove
 }
