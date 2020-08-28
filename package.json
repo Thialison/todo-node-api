@@ -1,0 +1,23 @@
+{
+  "name": "todo-node-api",
+  "version": "0.0.1",
+  "description": "todo api",
+  "main": "src/index",
+  "scripts": {
+    "start": "nodemon src/index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "todo-api"
+  ],
+  "author": "Thialison Souza",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^20.0.0",
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
