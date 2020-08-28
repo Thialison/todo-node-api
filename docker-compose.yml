@@ -6,6 +6,8 @@ services:
     restart: always
     working_dir: /usr/src/app
     env_file: .env
+    environment: 
+      - MONGO_HOST=mongo
     ports:
       - 3000:3000
     depends_on: 
