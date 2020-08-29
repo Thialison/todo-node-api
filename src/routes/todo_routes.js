@@ -1,5 +1,5 @@
 const todoHandler = require('../handlers/todo');
-const todoSchema = require('../requests/todo');
+const todoRequest = require('../requests/todo');
 
 module.exports = [
   {
@@ -7,7 +7,7 @@ module.exports = [
     path: '/api/v1/todos',
     handler: todoHandler.save,
     options: {
-      validate: todoSchema
+      validate: todoRequest
     }
   },
   {

@@ -1,4 +1,4 @@
-const TodoRepository = require('../repositories/todo');
+const todoRepository = require('../repositories/todo');
 
 const response = todo => ({
   type: 'todos',
@@ -23,7 +23,7 @@ const notFound = (req) => ({
 
 const find = async (req, h) => {
   try {
-    const todo = await TodoRepository.find(req.params.id);
+    const todo = await todoRepository.find(req.params.id);
     return h.response({ data: response(todo) }).code(200);
   } catch (error) {
     return h.response({ erros: notFound(req.params) }).code(404);
@@ -31,19 +31,19 @@ const find = async (req, h) => {
 }
 
 const getAll = async (req, h) => {
-  const todos = await TodoRepository.getAll();
+  const todos = await todoRepository.getAll();
   return h.response({ data: todos.map(response) }).code(200);
 }
 
 const save = async (req, h) => {
-  const todo = await TodoRepository.save(req.payload)
+  const todo = await todoRepository.save(req.payload)
   return h.response({ data: response(todo) }).code(201)
 }
 
 const remove = async (req, h) => {
   const params = req.params;
   try {
-    await TodoRepository.remove(params.id);
+    await todoRepository.remove(params.id);
     return h.response().code(204);
   } catch (error) {
     return h.response({ errors: notFound(params) }).code(404);
