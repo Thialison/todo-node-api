@@ -9,7 +9,7 @@ const save = async (payload) => {
   const todo = new TodoModel;
 
   todo.title = title;
-  todo.description = description;
+  description !== undefined ? todo.description = description : null;
   status !== undefined ? todo.status = status : null;
   end_date !== undefined ? todo.end_date = end_date : null;
   await todo.save();

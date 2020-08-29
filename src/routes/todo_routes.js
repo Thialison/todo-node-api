@@ -1,10 +1,14 @@
-const todoHandler = require('./handlers/todo');
+const todoHandler = require('../handlers/todo');
+const todoSchema = require('../requests/todo');
 
 module.exports = [
   {
     method: 'POST',
     path: '/api/v1/todos',
     handler: todoHandler.save,
+    options: {
+      validate: todoSchema
+    }
   },
   {
     method: 'GET',

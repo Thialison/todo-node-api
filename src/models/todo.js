@@ -3,9 +3,12 @@ const Schema = mongoose.Schema;
 
 const TodoSchema = new Schema({
   title: String,
-  description: { type: String, default: '-' },
+  description: { type: String, default: null },
   status: { type: String, default: 'Pending' },
-  end_date: { type: Date, default: Date.now() + 1 },
-});
+  end_date: { type: Date, default: null }
+}, {
+  timestamps: {}
+}
+);
 
 module.exports = mongoose.model('Todo', TodoSchema);

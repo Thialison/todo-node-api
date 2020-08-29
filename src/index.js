@@ -1,6 +1,6 @@
 require('./services/mongo');
 const Hapi = require('@hapi/hapi');
-const routes = require('./routes');
+const routes = require('./routes/routes');
 
 const init = async () => {
 
