@@ -1,4 +1,5 @@
 const userRepository = require('../repositories/user');
+const encrypt = require('../utils/encrypt');
 
 const sucessResponse = user => ({
   type: 'users',
@@ -20,7 +21,12 @@ const notFoundResponse = (id) => ({
 
 const save = async (req, h) => {
   try {
-    const user = await userRepository.save(req.payload);
+    const userBody = req.payload;
+
+    const passwordHash = await encrypt.make(userBody.password);
+    userBody.password = passwordHash;
+
+    const user = await userRepository.save(userBody);
     return h.response({ data: sucessResponse(user) }).code(201);
   } catch (e) {
     return h.response({ data: e.message }).code(404);
