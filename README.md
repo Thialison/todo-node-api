@@ -29,23 +29,16 @@ Após fazer o signup, você receberá um token com 1 hora de duração para cria
 POST 0.0.0.0:3000/api/v1/signup
 
 {
-  "username": "thialison@dbz.com",
+  "username": "user_example@dbz.com",
   "password": "senha@123"
 }
 ```
 
-#### Criando TODO
+#### Acesse a Doc com os endpoints disponíveis
 
-Pegue o token gerado no signup ou login e crie os seus todos
+http://0.0.0.0:3000/documentation
 
-```
-POST 0.0.0.0:3000/api/v1/todos
-
-{
-  "title": "Assistir aula de programação", # REQUIRED
-  "description": "Aprender sobre REST"
-}
-```
+![TODO DOC API](./src/utils/doc.png?raw=true "Doc API")
 
 #### Visualizar todos os TODOS do seu usuário
 
