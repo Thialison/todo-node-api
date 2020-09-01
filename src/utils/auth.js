@@ -1,5 +1,6 @@
 const { findByUserName, find } = require('../repositories/user');
 const encrypt = require('../utils/encrypt');
+const hapiAuth = require('hapi-auth-jwt2');
 
 const jwt = require('jsonwebtoken');
 
@@ -49,6 +50,8 @@ const authenticate = async (username, password) => {
 
 module.exports = {
   authenticate,
+  generateToken,
   verifyToken,
   authStrategy,
+  hapiAuth,
 }

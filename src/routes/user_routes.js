@@ -4,8 +4,8 @@ const { userSchema } = require('../requests/user');
 module.exports = [
   {
     method: 'POST',
-    path: '/api/v1/users',
-    handler: userHandler.save,
+    path: '/api/v1/signup',
+    handler: userHandler.signup,
     options: {
       validate: userSchema,
       auth: false

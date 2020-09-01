@@ -1,4 +1,5 @@
 const userRepository = require('../repositories/user');
+const { generateToken } = require('../utils/auth');
 const encrypt = require('../utils/encrypt');
 
 const sucessResponse = user => ({
@@ -20,7 +21,7 @@ const notFoundResponse = (id) => ({
   code: '404'
 })
 
-const save = async (req, h) => {
+const signup = async (req, h) => {
   try {
     const userBody = req.payload;
 
@@ -28,7 +29,9 @@ const save = async (req, h) => {
     userBody.password = passwordHash;
 
     const user = await userRepository.save(userBody);
-    return h.response({ data: sucessResponse(user) }).code(201);
+    const token = generateToken(user.id);
+
+    return h.response({ data: { token } }).code(201);
   } catch (e) {
     return h.response({ data: e.message }).code(404);
   }
@@ -60,7 +63,7 @@ const remove = async (req, h) => {
 }
 
 module.exports = {
-  save,
+  signup,
   getAll,
   find,
   remove
