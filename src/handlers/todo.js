@@ -23,7 +23,8 @@ const notFound = (req) => ({
 
 const find = async (req, h) => {
   try {
-    const todo = await todoRepository.find(req.params.id);
+    const user_id = req.auth.credentials.user_id;
+    const todo = await todoRepository.find(req.params.id, user_id);
     return h.response({ data: response(todo) }).code(200);
   } catch (error) {
     return h.response({ erros: notFound(req.params) }).code(404);
@@ -31,11 +32,14 @@ const find = async (req, h) => {
 }
 
 const getAll = async (req, h) => {
-  const todos = await todoRepository.getAll();
+  const user_id = req.auth.credentials.user_id;
+  const todos = await todoRepository.getAll(user_id);
   return h.response({ data: todos.map(response) }).code(200);
 }
 
 const save = async (req, h) => {
+  const user_id = req.auth.credentials.user_id;
+  req.payload.user_id = user_id
   const todo = await todoRepository.save(req.payload)
   return h.response({ data: response(todo) }).code(201)
 }

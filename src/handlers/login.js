@@ -1,18 +1,14 @@
-const { findByUserName } = require('../repositories/user');
-const encrypt = require('../utils/encrypt');
+const auth = require('../utils/auth');
 
 const login = async (req, h) => {
-  const user = await findByUserName(req.payload.username);
-  if (!user) {
-    return h.response({ errors: 'Username inválido!' }).code(404);
-  }
+  const { username, password } = req.payload;
 
-  const samePassword = await encrypt.compare(req.payload.password, user.password);
-  if (!samePassword) {
-    return h.response({ errors: 'Senha inválida!' }).code(404);
+  try {
+    const token = await auth.authenticate(username, password)
+    return h.response({ data: { token } }).code(200);
+  } catch (e) {
+    return h.response({ errors: 'Invalid Username or Password' }).code(404);
   }
-
-  return h.response({ data: 'Usuário Logado!' }).code(200);
 }
 
 module.exports = {

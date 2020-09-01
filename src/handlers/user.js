@@ -5,7 +5,8 @@ const sucessResponse = user => ({
   type: 'users',
   id: user.id,
   atributtes: {
-    username: user.username
+    username: user.username,
+    todos: user.todos,
   },
   links: {
     self: `/api/v1/users/${user.id}`,
@@ -39,12 +40,12 @@ const getAll = async (req, h) => {
 }
 
 const find = async (req, h) => {
-  const id = req.params.id;
+  const user_id = req.auth.credentials.user_id;
   try {
-    const user = await userRepository.find(id);
+    const user = await userRepository.find(user_id);
     return h.response({ data: sucessResponse(user) }).code(200)
   } catch (e) {
-    return h.response({ data: notFoundResponse(id) }).code(404)
+    return h.response({ data: notFoundResponse(user_id) }).code(404)
   }
 }
 

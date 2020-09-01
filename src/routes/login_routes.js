@@ -1,5 +1,5 @@
 const loginHandler = require('../handlers/login');
-const userRequest = require('../requests/user');
+const { userSchema } = require('../requests/user');
 
 module.exports = [
   {
@@ -7,7 +7,8 @@ module.exports = [
     path: '/api/v1/auth',
     handler: loginHandler.login,
     options: {
-      validate: userRequest
+      validate: userSchema,
+      auth: false
     }
   }
 ]

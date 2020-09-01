@@ -21,7 +21,10 @@ const save = async (payload) => {
 
 const getAll = async () => await userModel.find({});
 
-const find = async id => await userModel.findById(id);
+const find = async (id) => {
+  const user = await userModel.findById(id).populate("todos");
+  return user;
+}
 
 const remove = async id => await userModel.findOneAndDelete({ _id: id });
 

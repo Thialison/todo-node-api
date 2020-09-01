@@ -1,5 +1,5 @@
 const userHandler = require('../handlers/user')
-const userRequest = require('../requests/user')
+const { userSchema } = require('../requests/user');
 
 module.exports = [
   {
@@ -7,17 +7,21 @@ module.exports = [
     path: '/api/v1/users',
     handler: userHandler.save,
     options: {
-      validate: userRequest
+      validate: userSchema,
+      auth: false
     },
   },
   {
     method: 'GET',
     path: '/api/v1/users',
-    handler: userHandler.getAll
+    handler: userHandler.getAll,
+    options: {
+      auth: false
+    }
   },
   {
     method: 'GET',
-    path: '/api/v1/users/{id}',
+    path: '/api/v1/me',
     handler: userHandler.find
   },
   {
