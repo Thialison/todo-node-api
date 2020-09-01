@@ -1,5 +1,6 @@
 const userHandler = require('../handlers/user')
 const { userSchema } = require('../requests/user');
+const { userResponse } = require('../response/user');
 
 module.exports = [
   {
@@ -7,8 +8,10 @@ module.exports = [
     path: '/api/v1/signup',
     handler: userHandler.signup,
     options: {
+      tags: ['api'],
       validate: userSchema,
-      auth: false
+      auth: false,
+      response: { schema: userResponse }
     },
   },
   {
